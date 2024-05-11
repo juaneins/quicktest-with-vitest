@@ -43,4 +43,11 @@ describe('Notification component', () => {
     await closeButton.trigger('click');
     expect(wrapper.emitted()).toHaveProperty('clear-notification');
   });
+  test('renders correct message to the viewer', () => {
+    const message = 'Something happended, try again';
+    const wrapper = mount(NotificationToast, {
+      props: { message }
+    });
+    expect(wrapper.find('p').text()).toBe(message);
+  });
 });
