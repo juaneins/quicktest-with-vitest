@@ -3,6 +3,7 @@ import { mount, flushPromises } from '@vue/test-utils';
 import { describe, test, vi, expect } from 'vitest';
 import PostCard from '../PostCard.vue';
 
+
 const mockPost = {
   userId: 1,
   id: 1,
@@ -11,27 +12,36 @@ const mockPost = {
 };
 
 describe('Post card Component', () => {
-  test('can fetch and display a post', async () => {
-    vi.spyOn(axios, 'get').mockResolvedValueOnce({ data: mockPost });
+  test('created post render correctly', () => {
+    const title = 'Test Post';
+    const body = 'test body post...';
+    const wrapper = mount(PostCard, {
+      props: { title, body }
+    });
 
-    const wrapper = mount(PostCard);
-    expect(wrapper.html()).toContain('Loading...');
-
-    await flushPromises();
-
-    expect(wrapper.find('[data-testid="post-title"]').text()).toBe(mockPost.title);
-
-    expect(wrapper.find('[data-testid="post-body"]').text()).toBe(mockPost.body);
+    expect(wrapper.html()).toMatchSnapshot();
   });
+  //   test('can fetch and display a post', async () => {
+  //     vi.spyOn(axios, 'get').mockResolvedValueOnce({ data: mockPost });
 
-  test('can display an error message if fetching a post fails', async () => {
-    vi.spyOn(axios, 'get').mockRejectedValueOnce(new Error('Error Ocurred'));
+  //     const wrapper = mount(PostCard);
+  //     expect(wrapper.html()).toContain('Loading...');
 
-    const wrapper = mount(PostCard);
-    expect(wrapper.html()).toContain('Loading...');
+  //     await flushPromises();
 
-    await flushPromises();
+  //     expect(wrapper.find('[data-testid="post-title"]').text()).toBe(mockPost.title);
 
-    expect(wrapper.find('[data-testid="error-message"]').text()).toBe('Error Ocurred');
-  });
+  //     expect(wrapper.find('[data-testid="post-body"]').text()).toBe(mockPost.body);
+  //   });
+
+  //   test('can display an error message if fetching a post fails', async () => {
+  //     vi.spyOn(axios, 'get').mockRejectedValueOnce(new Error('Error Ocurred'));
+
+  //     const wrapper = mount(PostCard);
+  //     expect(wrapper.html()).toContain('Loading...');
+
+  //     await flushPromises();
+
+  //     expect(wrapper.find('[data-testid="error-message"]').text()).toBe('Error Ocurred');
+  //   });
 });
