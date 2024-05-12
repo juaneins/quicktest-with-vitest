@@ -1,3 +1,22 @@
+# install vitest ui
+
+npm add -D @vitest/ui
+
+npm run test --ui
+
+# configure coverage
+
+in vitest.config.js add the following configuration:
+
+ coverage: {
+        provider: 'v8'
+      },
+In this case the provider is v8
+
+install v8 coverage
+
+npm add -D @vitest/coverage-v8
+
 # quicktest-with-vitest
 
 This template should help get you started developing with Vue 3 in Vite.

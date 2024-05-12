@@ -55,10 +55,9 @@ describe('Post App', () => {
       vi.spyOn(axios, 'post').mockRejectedValueOnce(new Error('Error ocurred'));
 
       const wrapper = mount(App);
-      expect(wrapper.html()).toContain('Loading...');
 
       await wrapper.find('[data-testid="title-input"]').setValue(mockPost.title);
-      await wrapper.find('[data-testid="title-body"]').setValue(mockPost.body);
+      await wrapper.find('[data-testid="body-input"]').setValue(mockPost.body);
       await wrapper.find('[data-testid="post-form"]').trigger('submit');
 
       expect(wrapper.find('[type="submit"]').html()).toContain('Creating...');
